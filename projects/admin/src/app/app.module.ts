@@ -9,6 +9,7 @@ import { MaterialModule } from './material/material.module';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { HttpClientModule } from '@angular/common/http';
     MaterialModule,
     FormsModule,
     ToastrModule.forRoot(),
+    NgxSpinnerModule.forRoot({ type: 'square-jelly-box' }),
     ReactiveFormsModule,
     HttpClientModule,
     AppRoutingModule,
