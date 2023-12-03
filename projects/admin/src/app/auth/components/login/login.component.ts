@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoginService } from '../../services/login.service';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +13,9 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private fb:FormBuilder,
-    private service: LoginService
+    private service: LoginService,
+    private toaster: ToastrService,
+    private router: Router
     ) { }
 
   loginForm!: FormGroup
@@ -30,10 +34,12 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.service.login(this.loginForm.value).subscribe(res => {
-
+      this.toaster.success("Success", "Login Success")
+      this.router.navigate(['/tasks'])
     }, error => {
-      
+      this.toaster.error("Invalid Username or Password")
     })
+
     console.log(this.loginForm.value)
   }
 
