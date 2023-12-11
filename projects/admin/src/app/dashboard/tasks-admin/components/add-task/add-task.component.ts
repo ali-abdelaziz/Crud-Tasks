@@ -51,16 +51,21 @@ export class AddTaskComponent implements OnInit {
 
   createTask() {
     // console.log(this.newTaskForm.value);
-    let formData = new FormData
-    formData.append('title', this.newTaskForm.value['title'])
-    formData.append('userId', this.newTaskForm.value['userId'])
-    formData.append('image', this.newTaskForm.value['image'])
-    formData.append('description', this.newTaskForm.value['description'])
-    formData.append('deadline', this.newTaskForm.value['deadline'])
-    this.service.createTask(formData).subscribe(res => {
+    let model = this.prepareFormData()
+    this.service.createTask(model).subscribe(res => {
 
     })
 
+  }
+
+  prepareFormData() {
+    let formData = new FormData()
+    Object.entries(this.newTaskForm.value).forEach(([key , value]: any) => {
+      // console.log(key , value);
+      formData.append(key , value)
+    })
+
+    return formData
   }
 
 
