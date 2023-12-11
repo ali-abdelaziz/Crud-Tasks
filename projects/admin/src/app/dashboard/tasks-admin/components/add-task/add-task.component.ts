@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { TasksService } from '../../services/tasks.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-add-task',
@@ -59,10 +60,16 @@ export class AddTaskComponent implements OnInit {
   }
 
   prepareFormData() {
+    let newData = moment(this.newTaskForm.value['deadline']).format('DD-MM-YYYY')
+    // this.newTaskForm.get('deadline')?.setValue(newData)
     let formData = new FormData()
     Object.entries(this.newTaskForm.value).forEach(([key , value]: any) => {
       // console.log(key , value);
-      formData.append(key , value)
+      if (key == 'deadline') {
+        formData.append(key , newData)
+      }else {
+        formData.append(key , value)
+      }
     })
 
     return formData

@@ -51,7 +51,12 @@
 
     <footer class="tw-p-6">
         <div class="d-flex justify-content-center align-items-center">
-            <button mat-flat-button class="btn btn-success py-1 px-5 mx-2"  (click)="createTask()">Create</button>
+            <button
+            mat-flat-button
+            class="btn btn-success py-1 px-5 mx-2"
+            (click)="createTask()"
+            [disabled]="newTaskForm.invalid"
+            >Create</button>
 
             <button mat-flat-button class="btn btn-danger py-1 px-5">Close</button>
           </div>
