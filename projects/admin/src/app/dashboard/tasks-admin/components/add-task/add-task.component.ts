@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { TasksService } from '../../services/tasks.service';
 import * as moment from 'moment';
+import { ToastrService } from 'ngx-toastr';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-add-task',
@@ -15,16 +17,17 @@ export class AddTaskComponent implements OnInit {
     private fb:FormBuilder,
     public dialog: MatDialogRef<AddTaskComponent>,
     public matDialog:MatDialog,
-    private service: TasksService
+    private service: TasksService,
+    private toaster: ToastrService,
+    private spinner : NgxSpinnerService
 
     ) { }
 
   users:any = [
-    {name:"Moahmed" , id:1},
-    {name:"Ali" , id:2},
-    {name:"Ahmed" , id:3},
-    {name:"Zain" , id:4},
-  ]
+    {name:"Moahmed" , id:'657b1da1a67d4718046e086c'},
+    {name:"Ali" , id:'657b1e76a67d4718046e086f'},
+    {name:"Ahmed" , id:'657b1ea4a67d4718046e0872'}
+    ]
 
   fileName = ""
   newTaskForm!: FormGroup
@@ -35,7 +38,7 @@ export class AddTaskComponent implements OnInit {
 
   createForm() {
     this.newTaskForm = this.fb.group({
-      title: ['', Validators.required],
+      title: ['', [Validators.required, Validators.minLength(5)]],
       userId: ['', Validators.required],
       image: ['', Validators.required],
       description: ['', Validators.required],
@@ -52,9 +55,15 @@ export class AddTaskComponent implements OnInit {
 
   createTask() {
     // console.log(this.newTaskForm.value);
+    this.spinner.show()
     let model = this.prepareFormData()
     this.service.createTask(model).subscribe(res => {
-
+      this.toaster.success("Task Created Successfully", "Success")
+      this.spinner.hide()
+      this.dialog.close()
+    }, error => {
+      this.spinner.hide()
+      this.toaster.error(error.error.message)
     })
 
   }
