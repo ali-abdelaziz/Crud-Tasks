@@ -81,6 +81,18 @@ export class ListTasksComponent implements OnInit {
     
   }
 
+  deleteTask(id: any) {
+    this.spinner.show()
+    this.service.deleteTask(id).subscribe(res => {
+      this.toaster.success("Task Deleted Successfully", "Success")
+      this.spinner.hide()
+      this.getAllTasks()
+    }, error => {
+      this.toaster.error(error.error.message)
+      this.spinner.hide()
+    })
+  }
+
   addTask() {
       const dialogRef = this.dialog.open(AddTaskComponent, {
         width: '750px',
@@ -89,9 +101,9 @@ export class ListTasksComponent implements OnInit {
       dialogRef.afterClosed().subscribe(result => {
         if(result) {
           this.getAllTasks()
-          console.log(result);
-          
+          // console.log(result);
         }
       })
   }
+
 }
