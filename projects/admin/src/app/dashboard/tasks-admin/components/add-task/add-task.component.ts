@@ -60,7 +60,7 @@ export class AddTaskComponent implements OnInit {
     this.service.createTask(model).subscribe(res => {
       this.toaster.success("Task Created Successfully", "Success")
       this.spinner.hide()
-      this.dialog.close()
+      this.dialog.close(true)
     }, error => {
       this.spinner.hide()
       this.toaster.error(error.error.message)
