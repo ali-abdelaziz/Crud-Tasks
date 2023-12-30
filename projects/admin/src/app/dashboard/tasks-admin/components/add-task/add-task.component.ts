@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { TasksService } from '../../services/tasks.service';
 import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
@@ -14,6 +14,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 export class AddTaskComponent implements OnInit {
 
   constructor(
+    @Inject(MAT_DIALOG_DATA) public data: any,
     private fb:FormBuilder,
     public dialog: MatDialogRef<AddTaskComponent>,
     public matDialog:MatDialog,
@@ -33,17 +34,21 @@ export class AddTaskComponent implements OnInit {
   newTaskForm!: FormGroup
 
   ngOnInit(): void {
+    console.log(this.data);
+    
     this.createForm()
   }
 
   createForm() {
     this.newTaskForm = this.fb.group({
-      title: ['', [Validators.required, Validators.minLength(5)]],
-      userId: ['', Validators.required],
-      image: ['', Validators.required],
-      description: ['', Validators.required],
-      deadline: ['', Validators.required]
+      title: [this.data?.title || '', [Validators.required, Validators.minLength(5)]],
+      userId: [this.data?.userId._id || '', Validators.required],
+      image: [this.data?.image || '', Validators.required],
+      description: [this.data?.description || '', Validators.required],
+      deadline: [this.data ? new Date(this.data?.deadline.split('-').reverse().join('-')).toISOString() : '', Validators.required]
     })
+    // console.log(this.data?.deadline.split('-').reverse().join('-'));
+    
   }
 
   selectImage(event:any) {
@@ -66,6 +71,19 @@ export class AddTaskComponent implements OnInit {
       this.toaster.error(error.error.message)
     })
 
+  }
+
+  updateTask() {
+    this.spinner.show()
+    let model = this.prepareFormData()
+    this.service.updateTask(model, this.data._id).subscribe(res => {
+      this.toaster.success("Task Updated Successfully", "Success")
+      this.spinner.hide()
+      this.dialog.close(true)
+    }, error => {
+      this.spinner.hide()
+      this.toaster.error(error.error.message)
+    })
   }
 
   prepareFormData() {
