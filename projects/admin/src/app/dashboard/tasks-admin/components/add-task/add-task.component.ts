@@ -5,6 +5,7 @@ import { TasksService } from '../../services/tasks.service';
 import * as moment from 'moment';
 import { ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { ConfirmationComponent } from '../confirmation/confirmation.component';
 
 @Component({
   selector: 'app-add-task',
@@ -32,10 +33,10 @@ export class AddTaskComponent implements OnInit {
 
   fileName = ""
   newTaskForm!: FormGroup
+  formValues: any
 
   ngOnInit(): void {
     console.log(this.data);
-    
     this.createForm()
   }
 
@@ -48,6 +49,8 @@ export class AddTaskComponent implements OnInit {
       deadline: [this.data ? new Date(this.data?.deadline.split('-').reverse().join('-')).toISOString() : '', Validators.required]
     })
     // console.log(this.data?.deadline.split('-').reverse().join('-'));
+
+    this.formValues = this.newTaskForm.value
     
   }
 
@@ -102,5 +105,26 @@ export class AddTaskComponent implements OnInit {
     return formData
   }
 
+  close() {
+    let hasChanges = false
+    Object.keys(this.formValues).forEach((item) => {
+      if(this.formValues[item] !== this.newTaskForm.value[item]) {
+        hasChanges = true
+      }
+    })
+
+    if(hasChanges) {
+      const dialogRef = this.matDialog.open(ConfirmationComponent, {
+        width: '450px'
+      });
+  
+      dialogRef.afterClosed().subscribe(result => {
+        if(result) {
+        }
+      })
+    }else {
+      this.dialog.close()
+    }
+  }
 
 }

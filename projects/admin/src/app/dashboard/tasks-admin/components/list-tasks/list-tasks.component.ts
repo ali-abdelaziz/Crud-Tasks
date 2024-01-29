@@ -96,7 +96,8 @@ export class ListTasksComponent implements OnInit {
   updateTask(element: any) {
     const dialogRef = this.dialog.open(AddTaskComponent, {
       width: '750px',
-      data: element
+      data: element,
+      disableClose: true
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -110,6 +111,7 @@ export class ListTasksComponent implements OnInit {
   addTask() {
       const dialogRef = this.dialog.open(AddTaskComponent, {
         width: '750px',
+        disableClose: true
       });
 
       dialogRef.afterClosed().subscribe(result => {

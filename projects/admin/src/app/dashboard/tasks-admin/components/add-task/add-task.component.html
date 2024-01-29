@@ -1,7 +1,7 @@
 <div class="p-4">
     <header class="d-flex justify-content-between align-items-center" >
         <h1 class="m-0">Add New Task</h1>
-        <button mat-flat-button matDialogClose class="text-danger">
+        <button mat-flat-button (click)="close()" class="text-danger">
           <mat-icon>close</mat-icon>
         </button>
       </header>
@@ -66,7 +66,7 @@
             [disabled]="newTaskForm.invalid"
             >Update</button>
 
-            <button mat-flat-button class="btn btn-danger py-1 px-5" matDialogClose>Close</button>
+            <button mat-flat-button class="btn btn-danger py-1 px-5" (click)="close()">Close</button>
           </div>
 
       </footer>
