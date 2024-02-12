@@ -29,8 +29,8 @@ export class ListTasksComponent implements OnInit {
     ]
 
   status:any = [
-    {name:"Complete" , id:1},
-    {name:"In-Prossing" , id:2},
+    {name:"Completed"},
+    {name:"In-Progress"}
   ]
 
   filteration: any = {}
@@ -70,6 +70,13 @@ export class ListTasksComponent implements OnInit {
     this.filteration['userId'] = event.value
     this.getAllTasks()
     // console.log(event);
+  }
+
+  selectStatus(event: any) {
+    this.filteration['status'] = event.value
+    this.getAllTasks()
+    console.log(event);
+    
   }
 
   getAllTasks() {
