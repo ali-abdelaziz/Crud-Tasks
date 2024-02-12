@@ -6,6 +6,7 @@ import { TasksService } from '../../services/tasks.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { animate } from '@angular/animations';
+import * as moment from 'moment';
 export interface PeriodicElement {
   title: string;
   user: string;
@@ -75,8 +76,15 @@ export class ListTasksComponent implements OnInit {
   selectStatus(event: any) {
     this.filteration['status'] = event.value
     this.getAllTasks()
-    console.log(event);
-    
+    // console.log(event);
+  }
+
+  selectDate(event: any, type: any) {
+    this.filteration[type] = moment(event.value).format('DD-MM-YYYY')
+    // console.log(this.filteration);
+    if(type == 'toDate' && this.filteration['toDate'] !== 'Invalid date') {
+      this.getAllTasks()
+    }
   }
 
   getAllTasks() {

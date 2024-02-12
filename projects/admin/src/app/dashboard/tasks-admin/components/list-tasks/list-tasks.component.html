@@ -37,8 +37,8 @@
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>Enter a date range</mat-label>
                         <mat-date-range-input [rangePicker]="picker">
-                          <input matStartDate placeholder="Start date">
-                          <input matEndDate placeholder="End date">
+                          <input matStartDate placeholder="Start date" (dateChange)="selectDate($event, 'fromDate')">
+                          <input matEndDate placeholder="End date" (dateChange)="selectDate($event, 'toDate')">
                         </mat-date-range-input>
                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-date-range-picker #picker></mat-date-range-picker>
