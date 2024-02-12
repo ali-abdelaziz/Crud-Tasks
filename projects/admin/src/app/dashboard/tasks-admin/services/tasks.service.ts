@@ -12,9 +12,11 @@ export class TasksService {
 
   getAllTasks(filter: any) {
     let params = new HttpParams()
-    if(filter.keyword) {
-      params = params.append('keyword', filter.keyword)
-    }
+    Object.entries(filter).forEach(([key, value]: any) => {
+      if(value) {
+        params = params.append(key, value)
+      }
+    })
     return this.http.get(environment.baseApi + '/all-tasks', {params})
   }
 

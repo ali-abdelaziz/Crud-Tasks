@@ -23,11 +23,10 @@ export class ListTasksComponent implements OnInit {
   dataSource:any = [];
   tasksFilter!:FormGroup
   users:any = [
-    {name:"Moahmed" , id:1},
-    {name:"Ali" , id:2},
-    {name:"Ahmed" , id:3},
-    {name:"Zain" , id:4},
-  ]
+    {name:"Moahmed" , id:'657b1da1a67d4718046e086c'},
+    {name:"Ali" , id:'657b1e76a67d4718046e086f'},
+    {name:"Ahmed" , id:'657b1ea4a67d4718046e0872'}
+    ]
 
   status:any = [
     {name:"Complete" , id:1},
@@ -65,6 +64,12 @@ export class ListTasksComponent implements OnInit {
     this.timeoutId = setTimeout(() => {
     this.getAllTasks()
     }, 2000)
+  }
+
+  selectUser(event:any) {
+    this.filteration['userId'] = event.value
+    this.getAllTasks()
+    // console.log(event);
   }
 
   getAllTasks() {
