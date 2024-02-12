@@ -5,6 +5,7 @@ import { AddTaskComponent } from '../add-task/add-task.component';
 import { TasksService } from '../../services/tasks.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
+import { animate } from '@angular/animations';
 export interface PeriodicElement {
   title: string;
   user: string;
@@ -32,6 +33,10 @@ export class ListTasksComponent implements OnInit {
     {name:"Complete" , id:1},
     {name:"In-Prossing" , id:2},
   ]
+
+  filteration: any = {}
+  timeoutId: any
+
   constructor(
     public dialog: MatDialog ,
     private fb:FormBuilder,
@@ -54,9 +59,17 @@ export class ListTasksComponent implements OnInit {
     })
   }
 
+  search(event: any) {
+    this.filteration['keyword'] = event.value
+    clearTimeout(this.timeoutId)
+    this.timeoutId = setTimeout(() => {
+    this.getAllTasks()
+    }, 2000)
+  }
+
   getAllTasks() {
     this.spinner.show()
-    return this.service.getAllTasks().subscribe((res: any) => {
+    return this.service.getAllTasks(this.filteration).subscribe((res: any) => {
       this.dataSource = this.mappingTasks(res.tasks)
       this.spinner.hide()
     }, error => {

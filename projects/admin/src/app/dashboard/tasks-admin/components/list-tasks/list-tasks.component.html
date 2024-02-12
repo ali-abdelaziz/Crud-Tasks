@@ -9,7 +9,7 @@
                 <div class="col-md-3">
                     <mat-form-field appearance="outline" class="w-100">
                         <mat-label>Search</mat-label>
-                        <input matInput  placeholder="title search">
+                        <input matInput (keyup)="search($event.target)" placeholder="title search">
                     </mat-form-field>
                 </div>
                 <div class="col-md-3">
