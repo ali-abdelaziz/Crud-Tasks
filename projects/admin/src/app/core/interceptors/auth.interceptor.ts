@@ -20,7 +20,8 @@ export class AuthInterceptor implements HttpInterceptor {
     }
 
     const newRequest = request.clone({
-      headers: request.headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'))
+      headers: request.headers
+      .append('Authorization', 'Bearer ' + localStorage.getItem('token'))
     })
 
 

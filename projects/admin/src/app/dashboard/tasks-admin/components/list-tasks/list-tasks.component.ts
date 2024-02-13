@@ -104,8 +104,6 @@ export class ListTasksComponent implements OnInit {
     return this.service.getAllTasks(this.filteration).subscribe((res: any) => {
       this.dataSource = this.mappingTasks(res.tasks)
       this.total = res.totalItems
-    }, error => {
-      this.toaster.error(error.error.message)
     })
   }
 
@@ -129,8 +127,6 @@ export class ListTasksComponent implements OnInit {
     this.service.deleteTask(id).subscribe(res => {
       this.toaster.success("Task Deleted Successfully", "Success")
       this.getAllTasks()
-    }, error => {
-      this.toaster.error(error.error.message)
     })
   }
 
