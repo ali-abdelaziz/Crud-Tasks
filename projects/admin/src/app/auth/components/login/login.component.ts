@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoginService } from '../../services/login.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
-import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: 'app-login',
@@ -17,7 +16,6 @@ export class LoginComponent implements OnInit {
     private service: LoginService,
     private toaster: ToastrService,
     private router: Router,
-    private spinner: NgxSpinnerService
     ) { }
 
   loginForm!: FormGroup
@@ -35,15 +33,12 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-      this.spinner.show();
       this.service.login(this.loginForm.value).subscribe((res: any) => {
       localStorage.setItem("token", res.token)
       this.toaster.success("Success", "Login Success")
       this.router.navigate(['/tasks'])
-      this.spinner.hide();
     }, error => {
       this.toaster.error("Invalid Username or Password")
-      this.spinner.hide();
     })
 
     console.log(this.loginForm.value)

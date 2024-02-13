@@ -13,10 +13,10 @@ export class AuthInterceptor implements HttpInterceptor {
   constructor() {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    console.log(request)
+    // console.log(request)
 
     if(request.url.includes('all-tasks')){
-      console.log('This is an example of how to use the interceptor')
+      // console.log('This is an example of how to use the interceptor')
     }
 
     const newRequest = request.clone({

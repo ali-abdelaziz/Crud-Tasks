@@ -63,28 +63,22 @@ export class AddTaskComponent implements OnInit {
 
   createTask() {
     // console.log(this.newTaskForm.value);
-    this.spinner.show()
     let model = this.prepareFormData()
     this.service.createTask(model).subscribe(res => {
       this.toaster.success("Task Created Successfully", "Success")
-      this.spinner.hide()
       this.dialog.close(true)
     }, error => {
-      this.spinner.hide()
       this.toaster.error(error.error.message)
     })
 
   }
 
   updateTask() {
-    this.spinner.show()
     let model = this.prepareFormData()
     this.service.updateTask(model, this.data._id).subscribe(res => {
       this.toaster.success("Task Updated Successfully", "Success")
-      this.spinner.hide()
       this.dialog.close(true)
     }, error => {
-      this.spinner.hide()
       this.toaster.error(error.error.message)
     })
   }

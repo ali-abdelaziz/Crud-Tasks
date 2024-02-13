@@ -101,14 +101,11 @@ export class ListTasksComponent implements OnInit {
   }
 
   getAllTasks() {
-    this.spinner.show()
     return this.service.getAllTasks(this.filteration).subscribe((res: any) => {
       this.dataSource = this.mappingTasks(res.tasks)
       this.total = res.totalItems
-      this.spinner.hide()
     }, error => {
       this.toaster.error(error.error.message)
-      this.spinner.hide()
     })
   }
 
@@ -129,14 +126,11 @@ export class ListTasksComponent implements OnInit {
   }
 
   deleteTask(id: any) {
-    this.spinner.show()
     this.service.deleteTask(id).subscribe(res => {
       this.toaster.success("Task Deleted Successfully", "Success")
-      this.spinner.hide()
       this.getAllTasks()
     }, error => {
       this.toaster.error(error.error.message)
-      this.spinner.hide()
     })
   }
 
