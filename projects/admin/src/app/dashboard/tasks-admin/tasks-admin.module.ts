@@ -8,6 +8,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { MaterialModule } from '../../material/material.module';
 import { ConfirmationComponent } from './components/confirmation/confirmation.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import { ConfirmationComponent } from './components/confirmation/confirmation.co
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
+    NgxPaginationModule,
     HttpClientModule,
     CommonModule,
     TasksAdminRoutingModule

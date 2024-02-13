@@ -34,8 +34,13 @@ export class ListTasksComponent implements OnInit {
     {name:"In-Progress"}
   ]
 
-  filteration: any = {}
+  page: any = 1
+  filteration: any = {
+  page: this.page,
+  limit:10
+  }
   timeoutId: any
+  total: any
 
   constructor(
     public dialog: MatDialog ,
@@ -61,6 +66,8 @@ export class ListTasksComponent implements OnInit {
 
   search(event: any) {
     this.filteration['keyword'] = event.value
+    this.page = 1
+    this.filteration['page'] = 1
     clearTimeout(this.timeoutId)
     this.timeoutId = setTimeout(() => {
     this.getAllTasks()
@@ -68,18 +75,24 @@ export class ListTasksComponent implements OnInit {
   }
 
   selectUser(event:any) {
+    this.page = 1
+    this.filteration['page'] = 1
     this.filteration['userId'] = event.value
     this.getAllTasks()
     // console.log(event);
   }
 
   selectStatus(event: any) {
+    this.page = 1
+    this.filteration['page'] = 1
     this.filteration['status'] = event.value
     this.getAllTasks()
     // console.log(event);
   }
 
   selectDate(event: any, type: any) {
+    this.page = 1
+    this.filteration['page'] = 1
     this.filteration[type] = moment(event.value).format('DD-MM-YYYY')
     // console.log(this.filteration);
     if(type == 'toDate' && this.filteration['toDate'] !== 'Invalid date') {
@@ -91,6 +104,7 @@ export class ListTasksComponent implements OnInit {
     this.spinner.show()
     return this.service.getAllTasks(this.filteration).subscribe((res: any) => {
       this.dataSource = this.mappingTasks(res.tasks)
+      this.total = res.totalItems
       this.spinner.hide()
     }, error => {
       this.toaster.error(error.error.message)
@@ -153,6 +167,12 @@ export class ListTasksComponent implements OnInit {
           // console.log(result);
         }
       })
+  }
+
+  changePage(event:any) {
+    this.page = event
+    this.filteration['page'] = event
+    this.getAllTasks()
   }
 
 }
