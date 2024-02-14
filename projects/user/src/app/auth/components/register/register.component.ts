@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { CreateAccount } from '../../constant/DTOs';
 import { LoginService } from '../../services/login.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -12,7 +13,8 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private service: LoginService
+    private service: LoginService,
+    private router: Router
     ) { }
 
   registerForm!: FormGroup
@@ -37,7 +39,7 @@ export class RegisterComponent implements OnInit {
       password: this.registerForm.value['password'],
     }
    this.service.createUser(MODEL).subscribe(res => {
-      
+      this.router.navigate(['/tasks'])
     })
 
     console.log(this.registerForm);

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { LoginService } from '../../services/login.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -8,10 +10,29 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private fb: FormBuilder,
+    private service: LoginService,
+    private router: Router
+    ) { }
+  loginForm!: FormGroup;
 
   ngOnInit(): void {
+    this.createForm()
   }
 
+  createForm() {
+    this.loginForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required]],
+      role: ['user']
+    })
+  }
+
+  login() {
+    this.service.login(this.loginForm.value).subscribe(res => {
+      this.router.navigate(['/tasks'])
+    })
+  }
  
 }
