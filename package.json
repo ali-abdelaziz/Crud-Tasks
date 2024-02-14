@@ -20,6 +20,8 @@
     "@angular/platform-browser": "^14.1.0",
     "@angular/platform-browser-dynamic": "^14.1.0",
     "@angular/router": "^14.1.0",
+    "@ngx-translate/core": "^14.0.0",
+    "@ngx-translate/http-loader": "^7.0.0",
     "bootstrap": "^4.6.2",
     "moment": "^2.29.4",
     "ngx-pagination": "^6.0.3",

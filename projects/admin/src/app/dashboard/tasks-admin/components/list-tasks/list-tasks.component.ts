@@ -7,6 +7,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { animate } from '@angular/animations';
 import * as moment from 'moment';
+import { TranslateService } from '@ngx-translate/core';
 export interface PeriodicElement {
   title: string;
   user: string;
@@ -30,7 +31,8 @@ export class ListTasksComponent implements OnInit {
     ]
 
   status:any = [
-    {name:"Completed"},
+    {name: this.translate.instant("tasks.Completed")},
+    // {name:"Completed"},
     {name:"In-Progress"}
   ]
 
@@ -47,7 +49,8 @@ export class ListTasksComponent implements OnInit {
     private fb:FormBuilder,
     private service: TasksService,
     private spinner: NgxSpinnerService,
-    private toaster: ToastrService
+    private toaster: ToastrService,
+    private translate: TranslateService
     ) { }
 
   ngOnInit(): void {
