@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-layout',
@@ -6,10 +7,21 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./layout.component.scss']
 })
 export class LayoutComponent implements OnInit {
-
-  constructor() { }
+  lang: any = "en"
+  constructor(private translate: TranslateService) {
+    // console.log(this.translate);
+    this.lang = this.translate.currentLang
+   }
 
   ngOnInit(): void {
   }
 
+  changeLanguage() {
+    if(this.lang == "en") {
+      localStorage.setItem('language', 'ar')
+    }else {
+      localStorage.setItem('language', 'en')
+    }
+    window.location.reload()
+  }
 }

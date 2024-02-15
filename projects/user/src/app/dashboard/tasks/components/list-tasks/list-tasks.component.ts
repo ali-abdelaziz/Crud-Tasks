@@ -41,6 +41,7 @@ export class ListTasksComponent implements OnInit {
     {name:"In-Prossing" , id:2},
   ]
   constructor(public dialog: MatDialog ,private fb:FormBuilder) { }
+  page = 1
 
   ngOnInit(): void {
     this.createform()
@@ -57,5 +58,9 @@ export class ListTasksComponent implements OnInit {
 
   getAllTasks() {
 
+  }
+
+  changePage(event: any) {
+    this.page = event
   }
 }

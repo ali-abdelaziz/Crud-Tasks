@@ -1,0 +1,18 @@
+{
+    "tasks": {
+        "addTask": "اضافة مهمة",
+        "Complete": "انهاء"
+    },
+    "users": {
+
+    },
+    "general": {
+        "loading": "انتظار"
+    },
+    "toaster": {
+
+    },
+    "buttons": {
+
+    }
+}

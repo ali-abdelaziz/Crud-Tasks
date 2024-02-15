@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthRoutingModule } from './auth-routing.module';
 import { RegisterComponent } from './components/register/register.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 
@@ -20,6 +21,7 @@ import { RegisterComponent } from './components/register/register.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    SharedModule,
     CommonModule
   ]
 })
