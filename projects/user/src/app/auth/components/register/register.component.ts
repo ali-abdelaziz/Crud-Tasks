@@ -39,7 +39,7 @@ export class RegisterComponent implements OnInit {
       password: this.registerForm.value['password'],
     }
    this.service.createUser(MODEL).subscribe(res => {
-      this.router.navigate(['/tasks'])
+      this.router.navigate(['/login'])
     })
 
     console.log(this.registerForm);

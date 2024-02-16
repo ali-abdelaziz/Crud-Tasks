@@ -24,4 +24,8 @@ export class LayoutComponent implements OnInit {
     }
     window.location.reload()
   }
+
+  logout() {
+    localStorage.removeItem('token')
+  }
 }
